@@ -20,7 +20,7 @@ packer build -var 'project-id=MY_PROJECT_ID_HERE' terraria.pkr.hcl
 
 ## Terraria Server Options
 
-Terraria options are passed for a headless server start in `config_file.txt`. The base options provided in the file are insecure and should be changed.
+Terraria options are passed for a headless server start in `config_file.txt`. The base options provided in the file are insecure and should be changed. The config file is sourced from: https://terraria.fandom.com/wiki/Server
 
 ## References
 

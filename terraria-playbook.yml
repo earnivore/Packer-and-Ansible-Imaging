@@ -1,0 +1,38 @@
+---
+- name: Download and start a Terraria Server
+  hosts: default
+  become: yes
+  tasks:
+    - name: Install unzip
+      apt:
+        name: unzip
+        state: latest
+    - name: Install screen
+      apt:
+        name: screen
+        state: latest
+    - name: Create Terraria Directory
+      file:
+        path: /home/packer/terraria
+        state: directory
+    - name: Download from Terraria.org
+      get_url:
+        url: https://terraria.org/system/dedicated_servers/archives/000/000/046/original/terraria-server-1423.zip?1621172068
+        dest: /home/packer/terraria/terr.zip
+    - name: Unzip the Terraria server zip
+      unarchive:
+        remote_src: yes
+        src: /home/packer/terraria/terr.zip
+        dest: /home/packer/terraria
+    - name: Make the Terraria binary executable
+      command: chmod 755 /home/packer/terraria/1423/Linux/TerrariaServer.bin.x86_64
+    - name: Copy over configuration file
+      copy:
+        src: ./config_file.txt
+        dest: /home/packer/terraria/1423/Linux/config_file.txt
+    - name: Copy the Terraria service file
+      copy:
+        src: ./terraria.service
+        dest: /etc/systemd/system/terraria.service
+    - name: Enable Terraria Server
+      command: systemctl enable terraria

@@ -1,0 +1,10 @@
+[Unit]
+Description=Terraria Server
+
+[Service]
+Type=forking
+User=packer
+ExecStart=/usr/bin/screen -dmS terraria /bin/bash -c "/home/packer/terraria/1423/Linux/TerrariaServer.bin.x86_64 -config /home/packer/terraria/1423/Linux/config_file.txt"
+
+[Install]
+WantedBy=multi-user.target
